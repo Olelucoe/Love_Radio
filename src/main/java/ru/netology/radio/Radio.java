@@ -11,6 +11,17 @@ public class Radio {
     private int currentRadioStation = minRadioStation;
     private int currentVolume = minVolume;
 
+    private int stationAmount;
+
+    public Radio() {
+        stationAmount = 10;
+
+    }
+
+    public Radio(int stationAmount) {
+        this.stationAmount = stationAmount;
+    }
+
     public int getCurrentRadioStation() {
 
         return currentRadioStation;
@@ -41,7 +52,7 @@ public class Radio {
         if (nextCurrentRadioStation < minRadioStation) {
             return;
         }
-        if (nextCurrentRadioStation > maxRadioStation) {
+        if (nextCurrentRadioStation > stationAmount - 1) {
             return;
         }
         currentRadioStation = nextCurrentRadioStation;
@@ -57,36 +68,35 @@ public class Radio {
         currentVolume = nextCurrentVolume;
     }
 
-    public void increaseVolumeBelowMax() {
+    public void increaseVolume() {
         if (currentVolume < maxVolume) {
-            currentVolume = currentVolume + 1;
+            currentVolume++;
         }
-        if (currentVolume == maxVolume) {
-            currentVolume = 0;
-        }
+
     }
 
-    public void decreaseVolumeNotBelowMin() {
+    public void decreaseVolume() {
         if (currentVolume <= minVolume) {
             currentVolume = 0;
         } else {
-            currentVolume = currentVolume - 1;
-        }
-    }
-    public void increaseRadioStationBelowMax() {
-        if (currentRadioStation < maxRadioStation) {
-            currentRadioStation = currentRadioStation + 1;
-        }
-        if (currentRadioStation == maxRadioStation) {
-            currentRadioStation = 0;
+            currentVolume--;
         }
     }
 
-    public void decreaseRadioStationNotBelowMin() {
-        if (currentRadioStation <= minRadioStation) {
-            currentRadioStation = 0;
+    public void nextRadioStation() {
+        if (currentRadioStation < stationAmount - 1) {
+            currentRadioStation++;
         } else {
-            currentRadioStation = currentRadioStation - 1;
+            currentRadioStation = minRadioStation;
         }
+    }
+
+    public void prevRadioStation() {
+        if (currentRadioStation == minRadioStation) {
+            currentRadioStation = stationAmount - 1;
+        } else {
+            currentRadioStation--;
+        }
+
     }
 }
